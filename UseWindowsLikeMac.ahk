@@ -28,6 +28,7 @@
 #c::Send("^{vk43}")
 #x::Send("^{vk58}")
 #v::Send("^{vk56}")
+!v::Send("#{vk56}")
 #s::Send("^{vk53}")
 #a::Send("^{vk41}")
 #z::Send("^{vk5a}")
@@ -60,3 +61,4 @@
 
 ; Input Method switch
 #Space::Send("^{vk20}")
+
