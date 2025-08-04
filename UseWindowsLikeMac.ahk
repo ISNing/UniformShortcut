@@ -1,8 +1,7 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#Requires AutoHotkey v2.0
+#SingleInstance Force
 
+;@Ahk2Exe-UpdateManifest 2, CapsLockMapping, , 0
 
 ; Use Windows like Mac OS
 ; Lucky521
@@ -26,33 +25,33 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;#z::^z
 ;#y::^y
 ;#b::^b
-#c::Send ^{vk43}
-#x::Send ^{vk58}
-#v::Send ^{vk56}
-#s::Send ^{vk53}
-#a::Send ^{vk41}
-#z::Send ^{vk5a}
-#b::Send ^{vk42}
-#f::Send ^{vk46}
-#y::Send ^{vk59}
+#c::Send("^{vk43}")
+#x::Send("^{vk58}")
+#v::Send("^{vk56}")
+#s::Send("^{vk53}")
+#a::Send("^{vk41}")
+#z::Send("^{vk5a}")
+#b::Send("^{vk42}")
+#f::Send("^{vk46}")
+#y::Send("^{vk59}")
 
 
 ; Tab switch 
-#t::Send ^{vk54}
-#w::Send ^{vk57}
-#n::Send ^{vk4e}
+#t::Send("^{vk54}")
+#w::Send("^{vk57}")
+#n::Send("^{vk4e}")
 
-#1::Send ^{vk31}
-#2::Send ^{vk32}
-#3::Send ^{vk33}
-#4::Send ^{vk34}
-#5::Send ^{vk35}
-#6::Send ^{vk36}
+#1::Send("^{vk31}")
+#2::Send("^{vk32}")
+#3::Send("^{vk33}")
+#4::Send("^{vk34}")
+#5::Send("^{vk35}")
+#6::Send("^{vk36}")
 
 
 ; Close windows (Cmd + q to Alt + F4)
-;#q::Send !{F4}
-#q::Send !{vk73}
+;#q::Send("!{F4}")
+#q::Send("!{vk73}")
 
 
 ; App switch (Win + Tab to Alt + Tab)
@@ -60,4 +59,4 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 ; Input Method switch
-#Space::Send ^{vk20}
+#Space::Send("^{vk20}")
