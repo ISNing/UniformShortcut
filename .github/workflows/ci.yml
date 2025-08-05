@@ -1,4 +1,4 @@
-name: Build AHK Scripts
+name: CI
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: UniformShortcut4Win.exe
+          path: UniformShortcut4Win.exe
 
       - name: Release
         uses: softprops/action-gh-release@v2
