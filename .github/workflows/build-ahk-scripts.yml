@@ -1,0 +1,37 @@
+name: Build AHK Scripts
+
+on:
+  push:
+    branches: [ "master" ]
+    tags: [ '**' ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  build-ahk-scripts:
+    name: Build AHK Scripts
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ahk2Exe
+        uses: nekocodeX/GitHub-Action-Ahk2Exe@main
+        with:
+          in: UniformShortcut4Win.ahk
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UniformShortcut4Win.exe
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: UniformShortcut4Win.exe
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
