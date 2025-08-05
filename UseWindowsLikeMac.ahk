@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-;@Ahk2Exe-UpdateManifest 2, CapsLockMapping, , 0
+;@Ahk2Exe-UpdateManifest 2
 
 ; Use Windows like Mac OS
 ; Lucky521
@@ -61,4 +61,5 @@
 
 ; Input Method switch
 #Space::Send("^{vk20}")
+
 
