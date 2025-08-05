@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Ahk2Exe
-        uses: nekocodeX/GitHub-Action-Ahk2Exe@main
+        uses: CCCC-L/Action-Ahk2Exe@main
         with:
           in: UniformShortcut4Win.ahk
       
