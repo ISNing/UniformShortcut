@@ -26,6 +26,7 @@
 ;#y::^y
 ;#b::^b
 #c::Send("^{vk43}")
+#d::Send("^{vk44}")
 #x::Send("^{vk58}")
 #v::Send("^{vk56}")
 !v::Send("#{vk56}")
@@ -36,6 +37,8 @@
 #f::Send("^{vk46}")
 #y::Send("^{vk59}")
 
+!Left::Send("^{vk25}")
+!Right::Send("^{vk27}")
 
 ; Tab switch 
 #t::Send("^{vk54}")
@@ -55,11 +58,26 @@
 #q::Send("!{vk73}")
 
 
-; App switch (Win + Tab to Alt + Tab)
-; Lwin & Tab::AltTab
+; App switch (Win + (Shift) + Tab to Alt + (Shift) + Tab)
+!Tab::Tab
++!Tab::!Tab
+
+<#Tab::{
+    Send("{LAlt Down}{Tab}")
+    KeyWait("LWin")
+    Send("{LAlt Up}")
+}
+>#Tab::{
+    Send("{RAlt Down}{Tab}")
+    KeyWait("RWin")
+    Send("{RAlt Up}")
+}
 
 
-; Input Method switch
-#Space::Send("^{vk20}")
+; Virtual Desktop overview
+^Up::Send("#{vk9}")
 
 
+; Virtual Desktop switch
+^Left::Send("^#{vk25}")
+^Right::Send("^#{vk27}")
