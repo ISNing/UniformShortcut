@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-;@Ahk2Exe-UpdateManifest 2
+;@Ahk2Exe-UpdateManifest 2, CapsLockMapping, , 0
 
 DEBUG := false
 
-CN_Code := 0x804, EN_Code := 0x409 ; KBL代码
+; 让脚本在后台持续运行
+Persistent()
+HKL_CN_Code := 0x804, HKL_EN_Code := 0x409 ; KBL代码
 
 ; ------------------------------------------------------------
 ;  Wnd helpers
@@ -55,9 +57,19 @@ getIMEWnd(hWnd) {
 WM_IME_CONTROL := 0x0283
 IMC_GETCONVERSIONMODE := 0x0001
 IMC_SETCONVERSIONMODE := 0x0002
+IMC_GETOPENSTATUS := 0x0005
+IMC_SETOPENSTATUS := 0x0006
 
 IME_CMODE_ALPHANUMERIC := 0x0000      ; EN
 IME_CMODE_NATIVE := 0x0001      ; 中
+
+GetImeOpenStatus(imeWnd) {
+    return SendMessage(WM_IME_CONTROL, IMC_GETOPENSTATUS, 0, , imeWnd)
+}
+
+SetImeOpenStatus(imeWnd, to := true) {
+    return SendMessage(WM_IME_CONTROL, IMC_SETOPENSTATUS, to ? 1 : 0, , imeWnd)
+}
 
 GetImeConversionMode(imeWnd) {
     return SendMessage(WM_IME_CONTROL, IMC_GETCONVERSIONMODE, 0, , imeWnd)
@@ -155,13 +167,21 @@ CapsLock:: {
     LastHKL := GetInputLocaleID(FocusHWnd)
     LastLCID := GetLcidFromInputLocaleID(LastHKL)
     switch LastLCID {
-        case CN_Code:
+        case HKL_CN_Code:
         {
             if (KeyWait("CapsLock", "T0.3")) {
                 ;===== 短按 =====
                 try {
-                    LastIMENativeMode := GetImeNativeMode(ActiveIMEHWnd)
-                    SetImeNativeMode(ActiveIMEHWnd, !LastIMENativeMode)
+                    LastConvMode := GetImeConversionMode(ActiveIMEHWnd)
+                    LastOpenStatus := GetImeOpenStatus(ActiveIMEHWnd)
+                    switch LastConvMode {
+                        case 1025:
+                            SetImeConversionMode(ActiveIMEHWnd, 0)
+                        case 0:
+                            SetImeConversionMode(ActiveIMEHWnd, 1025)
+                        default:
+                            TrayTip "当前输入法模式未知: `n当前 ConversionMode: %LastConvMode%`n当前 OpenStatus: %LastOpenStatus%`n当前 HKL: " FormatHKL(LastHKL), "CapsLockRemapping 出现错误", "Iconx"
+                    }
                 } catch as e {
                     TrayTip "获取和设置输入法模式失败: " e.message "`n当前 HKL: " FormatHKL(LastHKL), "CapsLockRemapping 出现错误", "Iconx"
                     return
