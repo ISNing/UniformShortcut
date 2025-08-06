@@ -68,7 +68,8 @@ SetImeConversionMode(imeWnd, conv) {
 }
 
 GetImeNativeMode(imeWnd) {
-    conv := SendMessage(WM_IME_CONTROL, IMC_GETCONVERSIONMODE, 0, , imeWnd)
+    GetImeNativeMode(imeWnd) {
+    conv := GetImeConversionMode(imeWnd)
     return (conv & IME_CMODE_NATIVE) ? true : false
 }
 
