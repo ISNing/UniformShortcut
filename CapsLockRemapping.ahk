@@ -68,7 +68,6 @@ SetImeConversionMode(imeWnd, conv) {
 }
 
 GetImeNativeMode(imeWnd) {
-    GetImeNativeMode(imeWnd) {
     conv := GetImeConversionMode(imeWnd)
     return (conv & IME_CMODE_NATIVE) ? true : false
 }
